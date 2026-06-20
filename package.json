@@ -12,7 +12,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "fmt": "prettier --write ."
+    "fmt": "prettier --write .",
+    "test": "vitest run"
   },
   "dependencies": {
     "@phosphor-icons/react": "2.1.10",
@@ -35,6 +36,7 @@
     "eslint-config-next": "16.2.9",
     "prettier": "3.8.4",
     "prettier-plugin-tailwindcss": "0.8.0",
-    "typescript": "6.0.3"
+    "typescript": "6.0.3",
+    "vitest": "^4.1.9"
   }
 }
