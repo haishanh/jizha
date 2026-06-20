@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosError } from 'axios';
+import ky, { HTTPError, KyInstance } from 'ky';
 
 type KeyboardButton = {
   text: string;
@@ -16,40 +16,40 @@ type SendMessageParams = {
 };
 
 export class TelegramService {
+  private client: KyInstance;
+
   constructor(token: string) {
-    this.axios = axios.create({
+    this.client = ky.create({
+      prefix: 'https://api.telegram.org/bot' + token,
       headers: {
         'Content-Type': 'application/json',
       },
     });
-    this.baseUrl = 'https://api.telegram.org/bot' + token;
   }
-
-  private baseUrl: string;
-  private axios: AxiosInstance;
 
   async sendMessage(body: SendMessageParams) {
-    const { baseUrl } = this;
-    const url = `${baseUrl}/sendMessage`;
     try {
-      await this.axios.post(url, {
-        parse_mode: 'MarkdownV2',
-        ...body,
+      await this.client.post('sendMessage', {
+        json: {
+          parse_mode: 'MarkdownV2',
+          ...body,
+        },
       });
     } catch (e) {
-      this.handleAPIError(e as AxiosError);
+      await this.handleAPIError(e);
     }
   }
 
-  handleAPIError(e: AxiosError) {
-    if (e.response) {
-      const msg = JSON.stringify(e.response.data);
-      // I am lazy :(
+  private async handleAPIError(e: unknown): Promise<never> {
+    if (e instanceof HTTPError) {
+      const msg = await e.response.text();
       throw new Error(`${e.response.status}:${msg}`);
-    } else if (e.request) {
-      // network error
-      throw new Error(`network:error:${e.code}`);
     }
+
+    if (e instanceof Error) {
+      throw new Error(`network:error:${e.message}`);
+    }
+
     throw e;
   }
 }

@@ -1,38 +1,35 @@
-import axios, { AxiosInstance, AxiosError } from 'axios';
+import ky, { HTTPError, KyInstance } from 'ky';
 
 export class TgProxyService {
-  private baseUrl: string;
-  private axios: AxiosInstance;
+  private client: KyInstance;
 
   constructor(token: string) {
-    this.axios = axios.create({
+    this.client = ky.create({
+      prefix: 'https://api.telegram.org/bot' + token,
       headers: { 'Content-Type': 'application/json' },
     });
-    this.baseUrl = 'https://api.telegram.org/bot' + token;
   }
 
   // only supporting POST method for now
   async proxy(endpoint: string, payload: unknown) {
-    const { baseUrl } = this;
-    const url = `${baseUrl}/${endpoint}`;
-    console.log({ url, payload });
+    console.log({ endpoint, payload });
     try {
-      const res = await this.axios.post(url, payload);
-      return res.data;
+      return await this.client.post(endpoint, { json: payload }).json();
     } catch (e) {
-      this.handleAPIError(e as AxiosError);
+      await this.handleAPIError(e);
     }
   }
 
-  handleAPIError(e: AxiosError) {
-    if (e.response) {
-      const msg = JSON.stringify(e.response.data);
-      // I am lazy :(
+  private async handleAPIError(e: unknown): Promise<never> {
+    if (e instanceof HTTPError) {
+      const msg = await e.response.text();
       throw new Error(`${e.response.status}:${msg}`);
-    } else if (e.request) {
-      // network error
-      throw new Error(`network:error:${e.code}`);
     }
+
+    if (e instanceof Error) {
+      throw new Error(`network:error:${e.message}`);
+    }
+
     throw e;
   }
 }
