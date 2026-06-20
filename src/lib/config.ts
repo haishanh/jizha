@@ -9,6 +9,6 @@ export const config = {
 };
 
 export function get(x: string | string[]) {
-  const key = Array.isArray(x) ? x.join("_") : x;
+  const key = Array.isArray(x) ? x.join('_') : x;
   return env[key];
 }

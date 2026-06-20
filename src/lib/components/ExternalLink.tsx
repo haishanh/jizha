@@ -1,6 +1,6 @@
-import * as React from "react";
-import { ExternalLink as Icon } from "react-feather";
-import s from "./ExternalLink.module.scss";
+import s from './ExternalLink.module.scss';
+import * as React from 'react';
+import { ExternalLink as Icon } from 'react-feather';
 
 export function ExternalLink(props: { href: string; children: React.ReactNode }) {
   return (

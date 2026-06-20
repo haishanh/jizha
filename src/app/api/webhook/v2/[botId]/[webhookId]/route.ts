@@ -1,10 +1,10 @@
-import * as config from "@/lib/config";
-import * as telegram from "@/lib/seqs/telegram.seq";
-import * as jwt from "@/lib/seqs/jwt.seq";
-import { SeqHandlerInput } from "@/lib/utils/common.util";
-import { seq } from "@/lib/utils/common.util";
-import { type NextRequest } from "next/server";
-import { HttpException } from "@/lib/error";
+import * as config from '@/lib/config';
+import { HttpException } from '@/lib/error';
+import * as jwt from '@/lib/seqs/jwt.seq';
+import * as telegram from '@/lib/seqs/telegram.seq';
+import { SeqHandlerInput } from '@/lib/utils/common.util';
+import { seq } from '@/lib/utils/common.util';
+import { type NextRequest } from 'next/server';
 
 type Ctx = {
   botId: string;
@@ -17,36 +17,27 @@ function validate(input: SeqHandlerInput<Ctx>) {
 
   // botId
   const botId = ctx.botId;
-  if (typeof botId !== "string") {
-    console.log("missing botId");
-    throw new HttpException(400, "Parameters Error");
+  if (typeof botId !== 'string') {
+    console.log('missing botId');
+    throw new HttpException(400, 'Parameters Error');
   }
   // hookId
   const hookId = ctx.webhookId;
-  if (typeof hookId !== "string") {
-    console.log("missing hookId");
-    throw new HttpException(400, "Parameters Error");
+  if (typeof hookId !== 'string') {
+    console.log('missing hookId');
+    throw new HttpException(400, 'Parameters Error');
   }
 
-  const expected = config.get(["WEBHOOK_ID", botId]);
-  if (hookId !== expected) throw new HttpException(400, "Parameters Error");
+  const expected = config.get(['WEBHOOK_ID', botId]);
+  if (hookId !== expected) throw new HttpException(400, 'Parameters Error');
 }
 
 function ok() {
   return Response.json({ ok: 1 });
 }
 
-export async function POST(
-  req: NextRequest,
-  { params }: { params: Promise<{ botId: string; webhookId: string }> },
-) {
+export async function POST(req: NextRequest, { params }: { params: Promise<{ botId: string; webhookId: string }> }) {
   const { botId, webhookId } = await params;
-  const deal = seq<Ctx>(
-    validate,
-    jwt.setup,
-    telegram.setup,
-    telegram.webhook,
-    ok,
-  );
+  const deal = seq<Ctx>(validate, jwt.setup, telegram.setup, telegram.webhook, ok);
   return await deal({ req, ctx: { botId, webhookId } });
 }

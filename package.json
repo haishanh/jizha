@@ -1,39 +1,39 @@
 {
-  "name": "next-telegram",
+  "name": "jizha",
   "version": "0.1.0",
-  "packageManager": "pnpm@10.13.1",
+  "packageManager": "pnpm@11.8.0",
   "engines": {
     "node": ">=24",
     "pnpm": ">=10.13.1"
   },
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint .",
+    "fmt": "prettier --write ."
   },
   "dependencies": {
     "@phosphor-icons/react": "2.1.10",
-    "@reach/visually-hidden": "0.18.0",
-    "axios": "1.13.2",
+    "axios": "1.18.0",
     "copy-text-to-clipboard": "3.2.2",
-    "jose": "6.1.3",
-    "next": "16.1.1",
-    "react": "19.2.3",
-    "react-dom": "19.2.3",
+    "jose": "6.2.3",
+    "next": "16.2.9",
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
     "react-feather": "2.0.10"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "3.3.3",
-    "@tailwindcss/postcss": "4.1.18",
-    "@trivago/prettier-plugin-sort-imports": "6.0.0",
-    "@types/node": "25.0.3",
-    "@types/react": "19.2.7",
-    "eslint": "9.39.2",
-    "eslint-config-next": "16.1.1",
-    "prettier": "3.7.4",
-    "prettier-plugin-tailwindcss": "0.7.2",
-    "typescript": "5.9.3"
+    "@eslint/eslintrc": "3.3.5",
+    "@tailwindcss/postcss": "4.3.1",
+    "@trivago/prettier-plugin-sort-imports": "6.0.2",
+    "@types/node": "26.0.0",
+    "@types/react": "19.2.17",
+    "eslint": "10.5.0",
+    "eslint-config-next": "16.2.9",
+    "prettier": "3.8.4",
+    "prettier-plugin-tailwindcss": "0.8.0",
+    "typescript": "6.0.3"
   }
 }

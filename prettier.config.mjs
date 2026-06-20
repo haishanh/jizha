@@ -5,11 +5,8 @@
 const config = {
   singleQuote: true,
   printWidth: 120,
-  plugins: [
-    "prettier-plugin-tailwindcss",
-    "@trivago/prettier-plugin-sort-imports",
-  ],
-  tailwindStylesheet: "./src/app/globals.css",
+  plugins: ['prettier-plugin-tailwindcss', '@trivago/prettier-plugin-sort-imports'],
+  tailwindStylesheet: './src/styles/globals.css',
 };
 
 export default config;

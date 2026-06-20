@@ -1,10 +1,8 @@
-"use client";
+'use client';
 
-import { VisuallyHidden } from "@reach/visually-hidden";
-import * as React from "react";
-import { CopyIcon, CheckIcon } from "@phosphor-icons/react";
-
-import { IconButton } from "@/lib/components/IconButton";
+import { IconButton } from '@/lib/components/IconButton';
+import { CopyIcon, CheckIcon } from '@phosphor-icons/react';
+import * as React from 'react';
 
 const { useCallback, useState } = React;
 
@@ -22,7 +20,7 @@ export function CopyButton({ provideContent }: CopyButtonProps) {
       setIsCopying(true);
       e.preventDefault();
 
-      import("copy-text-to-clipboard").then((mod) => {
+      import('copy-text-to-clipboard').then((mod) => {
         const copy = mod.default;
         copy(provideContent());
       });
@@ -35,7 +33,7 @@ export function CopyButton({ provideContent }: CopyButtonProps) {
   return (
     <IconButton onClick={onClick}>
       {isCopying ? <CheckIcon size={16} /> : <CopyIcon size={16} />}
-      <VisuallyHidden>Copy</VisuallyHidden>
+      <span className="sr-only">Copy</span>
     </IconButton>
   );
 }

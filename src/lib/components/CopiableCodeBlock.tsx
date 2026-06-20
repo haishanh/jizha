@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import { CopyButton } from "@/lib/components/CopyButton";
-import s from "./CopiableCodeBlock.module.scss";
+import s from './CopiableCodeBlock.module.scss';
+import { CopyButton } from '@/lib/components/CopyButton';
+import * as React from 'react';
 
 export function CopiableCodeBlock({ cnt }: { cnt: string }) {
   return (

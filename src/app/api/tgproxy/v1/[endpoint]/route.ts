@@ -1,11 +1,11 @@
-import { TelegramService } from "@/lib/services/telegram.service";
-import { TgProxyService } from "@/lib/services/tgproxy.service";
-import { seq, SeqHandlerInput } from "@/lib/utils/common.util";
-import { type NextRequest } from "next/server";
-import * as jwt from "@/lib/seqs/jwt.seq";
-import * as tgproxy from "@/lib/seqs/tgproxy.seq";
-import { HttpException } from "@/lib/error";
-import assert from "node:assert";
+import { HttpException } from '@/lib/error';
+import * as jwt from '@/lib/seqs/jwt.seq';
+import * as tgproxy from '@/lib/seqs/tgproxy.seq';
+import { TelegramService } from '@/lib/services/telegram.service';
+import { TgProxyService } from '@/lib/services/tgproxy.service';
+import { seq, SeqHandlerInput } from '@/lib/utils/common.util';
+import { type NextRequest } from 'next/server';
+import assert from 'node:assert';
 
 type SeqCtx = {
   endpoint: string;
@@ -19,12 +19,12 @@ type SeqCtx = {
 };
 
 function unauthorized() {
-  throw new HttpException(401, "Unauthorized");
+  throw new HttpException(401, 'Unauthorized');
 }
 
 async function validate(input: SeqHandlerInput<SeqCtx>) {
   const { req, ctx } = input;
-  const authHeader = req.headers.get("authorization") || "";
+  const authHeader = req.headers.get('authorization') || '';
   if (!authHeader) return unauthorized();
 
   const capture = /Bearer\s([\S]+)/.exec(authHeader);
@@ -48,17 +48,14 @@ async function handle(input: SeqHandlerInput<SeqCtx>) {
   const body = await req.json();
 
   // inject chat_id
-  if (endpoint === "sendMessage" || endpoint === "sendPhoto") {
+  if (endpoint === 'sendMessage' || endpoint === 'sendPhoto') {
     if (!body.chat_id) body.chat_id = claims.chatId;
   }
   const data = await tgproxy.proxy(endpoint as string, body);
   return Response.json(data);
 }
 
-export async function POST(
-  req: NextRequest,
-  { params }: { params: Promise<{ endpoint: string }> },
-) {
+export async function POST(req: NextRequest, { params }: { params: Promise<{ endpoint: string }> }) {
   const { endpoint } = await params;
   const deal = seq<SeqCtx>(jwt.setup, validate, tgproxy.setup, handle);
   return await deal({ req, ctx: { endpoint } });

@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosError } from "axios";
+import axios, { AxiosInstance, AxiosError } from 'axios';
 
 export class TgProxyService {
   private baseUrl: string;
@@ -6,9 +6,9 @@ export class TgProxyService {
 
   constructor(token: string) {
     this.axios = axios.create({
-      headers: { "Content-Type": "application/json" },
+      headers: { 'Content-Type': 'application/json' },
     });
-    this.baseUrl = "https://api.telegram.org/bot" + token;
+    this.baseUrl = 'https://api.telegram.org/bot' + token;
   }
 
   // only supporting POST method for now

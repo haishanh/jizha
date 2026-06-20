@@ -1,15 +1,13 @@
-import type { MaybePromise } from "@/lib/types";
-import { type NextRequest } from "next/server";
-import { HttpException } from "@/lib/error";
+import { HttpException } from '@/lib/error';
+import type { MaybePromise } from '@/lib/types';
+import { type NextRequest } from 'next/server';
 
 export type SeqHandlerInput<Ctx = unknown> = {
   req: NextRequest;
   ctx: Ctx;
 };
 
-type SeqHandler<Ctx> = (
-  input: SeqHandlerInput<Ctx>,
-) => MaybePromise<Response | void>;
+type SeqHandler<Ctx> = (input: SeqHandlerInput<Ctx>) => MaybePromise<Response | void>;
 
 export function seq<Ctx>(...fns: SeqHandler<Ctx>[]) {
   return async (input: SeqHandlerInput<Ctx>) => {

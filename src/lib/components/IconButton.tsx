@@ -1,6 +1,5 @@
-import * as React from "react";
-
-import s from "./IconButton.module.scss";
+import s from './IconButton.module.scss';
+import * as React from 'react';
 
 export type IconButtonProps = {
   children: React.ReactNode;
@@ -12,7 +11,7 @@ export function IconButton({ children, onClick }: IconButtonProps) {
     (e: React.MouseEvent<HTMLButtonElement>) => {
       onClick && onClick(e);
     },
-    [onClick]
+    [onClick],
   );
 
   return (

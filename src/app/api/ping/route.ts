@@ -1,5 +1,5 @@
-import { type NextRequest } from "next/server";
-import { arch, cpus, release, platform, type, totalmem } from "os";
+import { type NextRequest } from 'next/server';
+import { arch, cpus, release, platform, type, totalmem } from 'os';
 
 export async function GET(request: NextRequest) {
   const info = {
