@@ -1,7 +1,6 @@
-import { type NextRequest } from 'next/server';
 import { arch, cpus, release, platform, type, totalmem } from 'os';
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   const info = {
     arch: arch(),
     cpus: cpus(),

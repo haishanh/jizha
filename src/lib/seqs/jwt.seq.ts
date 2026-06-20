@@ -4,11 +4,11 @@ import * as jose from 'jose';
 import assert from 'node:assert';
 
 export type Jwt = {
-  sign(d: string | object | Buffer): Promise<string>;
-  verify(d: string): Promise<any>;
+  sign(d: jose.JWTPayload): Promise<string>;
+  verify(d: string): Promise<jose.JWTPayload>;
 };
 
-function sign(payload: any, secret: string): Promise<string> {
+function sign(payload: jose.JWTPayload, secret: string): Promise<string> {
   const alg = 'HS256';
   return (
     new jose.SignJWT(payload)
@@ -29,7 +29,7 @@ export function setup(input: SeqHandlerInput<{ jwt?: Jwt }>) {
   assert(!input.ctx.jwt, 'Expect jwt in ctx');
 
   input.ctx.jwt = {
-    sign: (d: string | object | Buffer) => sign(d, config.jwtSecret),
+    sign: (d: jose.JWTPayload) => sign(d, config.jwtSecret),
     verify: (d: string) => verify(d, config.jwtSecret),
   };
 }

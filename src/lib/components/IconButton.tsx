@@ -9,7 +9,9 @@ export type IconButtonProps = {
 export function IconButton({ children, onClick }: IconButtonProps) {
   const internalOnClick = React.useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
-      onClick && onClick(e);
+      if (onClick) {
+        onClick(e);
+      }
     },
     [onClick],
   );

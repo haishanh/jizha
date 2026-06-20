@@ -34,7 +34,7 @@ async function validate(input: SeqHandlerInput<SeqCtx>) {
 
   try {
     input.ctx.claims = await ctx.jwt.verify(capture[1]);
-  } catch (e) {
+  } catch {
     return unauthorized();
   }
 }

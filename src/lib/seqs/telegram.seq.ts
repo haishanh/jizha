@@ -1,9 +1,10 @@
 import * as config from '@/lib/config';
+import type { Jwt } from '@/lib/seqs/jwt.seq';
 import { TelegramService } from '@/lib/services/telegram.service';
 import type { SeqHandlerInput } from '@/lib/utils/common.util';
 import assert from 'assert';
 
-type SeqCtx = { jwt?: any; botId?: string; telegram?: TelegramService };
+type SeqCtx = { jwt?: Jwt; botId?: string; telegram?: TelegramService };
 
 export function setup(input: SeqHandlerInput<{ telegram?: TelegramService; botId?: string }>) {
   const botId = input.ctx.botId || '0';
