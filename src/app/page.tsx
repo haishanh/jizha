@@ -1,6 +1,6 @@
 import { CopiableCodeBlock } from '@/lib/components/CopiableCodeBlock';
 import { ExternalLink } from '@/lib/components/ExternalLink';
-import styles from '@/styles/Home.module.scss';
+import styles from '@/styles/Home.module.css';
 import type { Metadata } from 'next';
 import { headers } from 'next/headers';
 

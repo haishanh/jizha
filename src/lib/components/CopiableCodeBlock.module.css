@@ -9,10 +9,11 @@
   padding: 16px 20px 16px 10px;
   border-radius: 10px;
   overflow-x: auto;
-  code {
-    font-size: 0.8em;
-    font-family: var(--fmono);
-  }
+}
+
+.pre code {
+  font-size: 0.8em;
+  font-family: var(--fmono);
 }
 
 .copyBtn {

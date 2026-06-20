@@ -1,4 +1,4 @@
-import s from './ExternalLink.module.scss';
+import s from './ExternalLink.module.css';
 import * as React from 'react';
 import { ExternalLink as Icon } from 'react-feather';
 

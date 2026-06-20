@@ -1,4 +1,4 @@
-import s from './IconButton.module.scss';
+import s from './IconButton.module.css';
 import * as React from 'react';
 
 export type IconButtonProps = {

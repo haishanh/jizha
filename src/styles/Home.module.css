@@ -3,8 +3,6 @@
   padding: 0.8em 0.5rem;
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
-  /* align-items: center; */
   height: 100vh;
   max-width: 1000px;
   margin: 0 auto;
@@ -22,11 +20,12 @@
 .footer {
   text-align: right;
   color: #777;
-  a {
-    text-decoration: underline;
-    text-decoration-color: #a99f13;
-    text-decoration-thickness: 2px;
-  }
+}
+
+.footer a {
+  text-decoration: underline;
+  text-decoration-color: #a99f13;
+  text-decoration-thickness: 2px;
 }
 
 .title a {
@@ -103,7 +102,7 @@
 }
 
 .card h2 {
-  margin: 0 0 1rem 0;
+  margin: 0 0 1rem;
   font-size: 1.5rem;
 }
 

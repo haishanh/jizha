@@ -1,6 +1,6 @@
 'use client';
 
-import s from './CopiableCodeBlock.module.scss';
+import s from './CopiableCodeBlock.module.css';
 import { CopyButton } from '@/lib/components/CopyButton';
 import * as React from 'react';
 
